@@ -4877,10 +4877,26 @@
 
         $$.mainRegion = $$.main.select('.' + CLASS.regions).selectAll('.' + CLASS.region)
             .data(config.regions);
-        $$.mainRegion.enter().append('g')
-            .attr('class', $$.classRegion.bind($$))
-          .append('rect')
+        var g = $$.mainRegion.enter().append('g')
+            .attr('class', $$.classRegion.bind($$));
+
+        g.append('rect')
             .style("fill-opacity", 0);
+        g.append('text')
+            .text(function (id) {
+                return id.label;
+            })
+            .each(function (id) {
+                var regionX = $$.regionX(id);
+                var width = $$.regionWidth(id);
+                var textWidth = this.clientWidth;
+
+                var x = regionX + (width - textWidth) / 2;
+                this.setAttribute('x', x);
+            })
+            .attr('class', 'c3-region-label')
+            .attr('y', 16);
+
         $$.mainRegion.exit().transition().duration(duration)
             .style("opacity", 0)
             .remove();
