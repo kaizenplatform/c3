@@ -297,6 +297,7 @@ c3_chart_internal_fn.addTransitionForCircle = function (transitions, cx, cy) {
     transitions.push($$.mainCircle.transition()
                      .style('opacity', $$.opacityForCircle.bind($$))
                      .style("fill", $$.color)
+                     .style("stroke", $$.color)
                      .attr("cx", cx)
                      .attr("cy", cy));
     transitions.push($$.main.selectAll('.' + CLASS.selectedCircle).transition()
